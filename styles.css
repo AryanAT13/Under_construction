@@ -1,0 +1,174 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base styles */
+html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #f5a623, #f76b1c);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Caution banner */
+.caution-banner {
+  background-size: contain;
+  height: 100px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.tape-text {
+  background: rgba(255, 255, 0, 0.7);
+  padding: 5px 20px;
+  border: 2px dashed black;
+  transform: rotate(-2deg);
+  color: black;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 0 yellow;
+}
+
+/* Container */
+.container {
+  text-align: center;
+  padding: 120px 20px 60px;
+  z-index: 5;
+  position: relative;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.loader {
+  border: 6px solid #fff;
+  border-top: 6px solid #333;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+/* Crane Animation */
+.crane-animation {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.crane-animation dotlottie-player {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  position: relative;
+  margin-top: 40px;
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .tape-text {
+    font-size: 1rem;
+    padding: 4px 12px;
+  }
+
+  .caution-banner {
+    height: 80px;
+  }
+
+  .container {
+    padding-top: 100px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tape-text {
+    font-size: 0.9rem;
+    padding: 3px 10px;
+  }
+
+  .caution-banner {
+    height: 70px;
+  }
+
+  .container {
+    padding-top: 90px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+
+  .icon {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .crane-animation dotlottie-player {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .crane-animation dotlottie-player {
+    max-width: 280px;
+  }
+}
+
