@@ -7,7 +7,7 @@
 /* Base styles */
 html, body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom right, #f5a623, #f76b1c);
+  background: linear-gradient(to bottom right, rgb(141, 139, 139), #2c2b2b);
   color: #fff;
   min-height: 100vh;
   overflow-x: hidden;
