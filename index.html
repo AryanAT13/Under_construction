@@ -3,44 +3,149 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Under Development</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script
-    src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
-    type="module"
-  ></script>
+  <title>Under Construction</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Full-screen static canvas & video background */
+    #tv-static,
+    #bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    #bg-video { display: none; }
+
+    /* Body & Layout */
+    body {
+      font-family: 'Inter', 'Helvetica Neue', sans-serif;
+      background-color: #000;
+      color: #f2f2f2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    main { z-index: 1; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5em; }
+    p  { font-size: 1.1rem; color: #c0c0c0; line-height: 1.5; }
+    footer { margin-top: 2rem; font-size: 0.9rem; color: #666; border-top: 1px solid #1f1f1f; padding-top: 1rem; width: 100%; max-width: 400px; z-index: 1; }
+
+    /* Change Channel Button */
+    #change-channel {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1;
+      padding: 0.75rem 1.25rem;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid #444;
+      color: #f2f2f2;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    #change-channel:hover { background: rgba(255,255,255,0.1); }
+
+    /* Responsive Typography */
+    @media (min-width: 600px) {
+      h1 { font-size: 3rem; }
+      p  { font-size: 1.25rem; }
+    }
+    @media (min-width: 1024px) {
+      h1 { font-size: 3.5rem; }
+      p  { font-size: 1.5rem; }
+    }
+
+    /* Custom colors for specific elements */
+    #main-text { color: #000; }
+    #footer-text { color: #000; }
+
+  </style>
 </head>
-<body>  
-  <div class="caution-banner">
-    <div class="tape-text">⚠️ MEN AT WORK ⚠️</div>
-  </div>
-  
-  <div class="container">
-    <div class="icon">🚧</div>
-    <h1>Under Development</h1>
-    <p>I am building something awesome. Stay tuned!</p>
-    <div class="loader"></div>
+<body>
 
-    <div class="crane-animation">
-      <dotlottie-player
-        src="https://lottie.host/ed810396-4e29-446b-9eb7-6f5009a1e950/rbgCvD6Aqs.lottie"
-        background="transparent"
-        speed="1"
-        loop
-        autoplay
-      ></dotlottie-player>
-    </div>
-  </div>
+  <!-- Canvas for TV static -->
+  <canvas id="tv-static"></canvas>
 
+  <!-- Background video for channel change -->
+  <video id="bg-video" src="channel.mp4" autoplay loop muted playsinline></video>
+
+  <!-- Main Content -->
+  <main aria-labelledby="coming-soon-heading">
+    <h1 id="coming-soon-heading">Coming Soon</h1>
+    
+    <p id="main-text">This digital space is evolving.<br>Please check back shortly.</p>
+  </main>
+
+  <!-- Footer -->
   <footer>
-    <p>Thank you for showing interest!!</p>
-    <p>All rights reserved © <span id="year"></span></p>
+    <p id="footer-text">&copy; <time id="year"></time> All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
-  
+  <!-- Change Channel Button -->
+  <button id="change-channel">Change Channel</button>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // TV Static Noise on Canvas
+    (function() {
+      const canvas = document.getElementById('tv-static');
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      function drawStatic() {
+        const imageData = ctx.createImageData(w, h);
+        const buffer = new Uint32Array(imageData.data.buffer);
+        for (let i = 0; i < buffer.length; i++) {
+          const shade = Math.random() < 0.5 ? 0xFF : 0x00;
+          buffer[i] = (0xFF << 24) | (shade << 16) | (shade << 8) | shade;
+        }
+        ctx.putImageData(imageData, 0, 0);
+        requestAnimationFrame(drawStatic);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+      drawStatic();
+    })();
+
+    // Channel toggle logic
+    (function() {
+      const btn = document.getElementById('change-channel');
+      const canvas = document.getElementById('tv-static');
+      const video  = document.getElementById('bg-video');
+      let showingVideo = false;
+
+      btn.addEventListener('click', () => {
+        showingVideo = !showingVideo;
+        if (showingVideo) {
+          canvas.style.display = 'none';
+          video.style.display  = 'block';
+          video.play();
+          btn.textContent = 'Return to Static';
+        } else {
+          video.pause();
+          video.currentTime = 0;
+          video.style.display  = 'none';
+          canvas.style.display = 'block';
+          btn.textContent = 'Change Channel';
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>
-
-
-
